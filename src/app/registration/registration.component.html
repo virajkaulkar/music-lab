@@ -1,0 +1,56 @@
+<div class="container">
+<div class="col-md-12 col-sm-12 col-xs-12" style="padding:0 30%;">
+    <div class="margin10">
+        <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+            <h2 class="text-center">Register</h2>
+
+            <div class="form-group" [class.has-error] = "name_control.invalid && name_control.touched"
+                                    [class.has-success] = "name_control.valid">
+              <label for="Name" class="control-label">Name</label>
+              <input type="text" class="form-control" id="name" name="name"
+                      [(ngModel)]="user.name" placeholder="Enter your full name" required #name_control="ngModel" ngModel>
+              <div *ngIf="name_control.invalid && name_control.touched">
+                  <span class="invalid-feedback">Name is Required</span>
+              </div>
+            </div>
+
+
+            <div class="form-group" [class.has-error] = "email_control.invalid && email_control.touched"
+                                    [class.has-success] = "email_control.valid">
+              <label for="email" class="control-label">Email</label>
+              <input type="text" class="form-control" id="email" name="email"
+                      [(ngModel)]="user.email" placeholder="Enter your full name" required #email_control="ngModel" ngModel>
+              <div *ngIf="email_control.invalid && email_control.touched">
+                  <span class="invalid-feedback">email is Required</span>
+              </div>
+            </div>
+
+            <div class="form-group" [class.has-error] = "password_control.invalid && password_control.touched"
+                                    [class.has-success] = "password_control.valid">
+              <label for="password" class="control-label">password</label>
+              <input type="password" class="form-control" id="password" name="password"
+                      [(ngModel)]="user.password" placeholder="Enter your full name" required #password_control="ngModel" ngModel>
+              <div *ngIf="password_control.invalid && password_control.touched">
+                  <span class="invalid-feedback">password is Required</span>
+              </div>
+            </div>
+
+            <div class="form-group" [class.has-error] = "c_password_control.invalid && c_password_control.touched"
+                                    [class.has-success] = "c_password_control.valid">
+              <label for="c_password" class="control-label">Confirm Password</label>
+              <input type="c_password" class="form-control" id="c_password" name="c_password"
+                      [(ngModel)]="user.c_password" placeholder="Enter your full name" required #c_password_control="ngModel" ngModel>
+              <div *ngIf="c_password_control.invalid && c_password_control.touched">
+                  <span class="invalid-feedback">Confirm Password is Required</span>
+              </div>
+            </div>
+
+
+            <div class="">
+                <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!registerForm.form.valid">Register</button>
+            </div>
+            <span class="margin10">Already User?? click <a routerLink="/login">here</a> to login</span>
+        </form>
+    </div>
+</div>
+</div>

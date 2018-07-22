@@ -10,10 +10,18 @@
                   <li class="nav-item active">
                     <a class="nav-link" routerLink="home">Home <span class="sr-only">(current)</span></a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" >
                     <a class="nav-link" routerLink="genres">Genres</a>
                   </li>
-
+                  <!-- <li class="nav-item">
+                    <a class="nav-link" routerLink="register">Register</a>
+                  </li> -->
+                  <!-- <li class="nav-item">
+                    <a class="nav-link" routerLink="login">Login</a>
+                  </li> -->
+                  <li class="nav-item" [hidden]="!logged_in">
+                      <a class="nav-link" (click)=logout()>Logout</a>
+                  </li>
                 </ul>
               </div>
 

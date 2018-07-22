@@ -1,0 +1,36 @@
+<div class="container">
+<div class="col-md-12 col-sm-12 col-xs-12 margin20" style="padding:0 30%;">
+
+    <div class="margin10">
+      <span [hidden]='!error.error' class="alert alert-success">
+          {{error.message}}
+      </span>
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <h2 class="text-center">Login</h2>
+            <div class="form-group" [class.has-error] = "email_control.invalid && email_control.touched"
+                                    [class.has-success] = "email_control.valid">
+              <label for="email" class="control-label">Email</label>
+              <input type="text" class="form-control" id="email" name="email"
+                      [(ngModel)]="user.email" placeholder="Enter your full name" required #email_control="ngModel" ngModel>
+              <div *ngIf="email_control.invalid && email_control.touched">
+                  <span class="invalid-feedback">email is Required</span>
+              </div>
+            </div>
+
+            <div class="form-group" [class.has-error] = "password_control.invalid && password_control.touched"
+                                    [class.has-success] = "password_control.valid">
+              <label for="password" class="control-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password"
+                      [(ngModel)]="user.password" placeholder="Enter valid password" required #password_control="ngModel" ngModel>
+              <div *ngIf="password_control.invalid && password_control.touched">
+                  <span class="invalid-feedback">password is Required</span>
+              </div>
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!loginForm.form.valid">Login</button>
+            </div>
+            <span class="margin10">Do not have an account?? click <a routerLink="/register">here</a> to register</span>
+        </form>
+    </div>
+</div>
+</div>

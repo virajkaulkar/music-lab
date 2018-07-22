@@ -2,38 +2,43 @@
         <div>
             <div class="container" >
                 <div class="row background_white">
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div >
-                            <h2 class="text-center">Music Genres</h2>
+                  <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" *ngIf="successMessage.success">
+                        <strong>{{ successMessage.message }}</strong>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div >
+                          <h2 class="text-center">Music Genres</h2>
 
-                            <div class="margin10">
-                                <ul class="list-group">
-                                  <ng-container *ngFor="let genre of data">
-                                    <li class="list-group-item">{{ genre.title }}
-                                      <button type="button" class="pull-right" (click)="deleteGenre(genre.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </li>
+                          <div class="margin10">
+                              <ul class="list-group">
+                                <ng-container *ngFor="let genre of data">
+                                  <li class="list-group-item">{{ genre.title }}
+                                    <span class="text-danger" style='cursor:pointer;float:right;padding:0 10px;' class="pull-right" (click)="deleteGenre(genre.id)">
+                                      <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                    </span>
+                                    <span style='cursor:pointer;float:right;padding:0 10px;' class="pull-right" (click)="getGenre(genre.id)">
+                                      <i class="far fa-edit text-success"></i>
+                                    </span>
 
-                                  </ng-container>
+                                  </li>
 
-                                </ul>
-                            </div>
+                                </ng-container>
+                              </ul>
+                          </div>
 
-
-
-                        </div>
-                    </div>
+                      </div>
+                  </div>
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="margin10">
-                          <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" *ngIf="successMessage.success">
-                                <strong>{{ successMessage.message }}</strong>
-                          </div>
+
                             <form #genreForm="ngForm" (ngSubmit)="addGenre(genreForm)">
-                                <h2 class="text-center">Add New Genre</h2>
+                                <h2 class="text-center">{{ action_name ? "Add"  : "Update"}} New Genre</h2>
+                                <input type="hidden" name="genre_id" id="genre_id" [(ngModel)]="genres.genre_id"/>
                                 <div class="form-group" [class.has-error] = "genre_title_control.invalid && genre_title_control.touched"
                                                         [class.has-success] = "genre_title_control.valid">
                                   <label for="genre_title" class="control-label">Genre Title</label>
                                   <input type="text" class="form-control" id="genre_title" name="genre_title"
-                                          [(ngModel)]="genre_title" placeholder="Genre Title" required #genre_title_control="ngModel">
+                                          [(ngModel)]="genres.genre_title" placeholder="Genre Title" required #genre_title_control="ngModel">
                                   <span class="help-block" *ngIf="genre_title_control.invalid && genre_title_control.touched">
                                     Genre title is Required
                                   </span>
@@ -42,7 +47,7 @@
 
 
                                 <div class="margin20">
-                                    <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!genreForm.form.valid">Add New Genre</button>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!genreForm.form.valid">{{ action_name ? "Add"  : "Update"}} New Genre</button>
                                 </div>
                             </form>
 

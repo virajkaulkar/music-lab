@@ -10,6 +10,8 @@ import { HttpModule } from '@angular/http';
 import { HomeComponent } from './home/home.component';
 import { TracksComponent } from './tracks/tracks.component';
 import { GenresComponent } from './genres/genres.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 import { HomeService } from './home/home.components';
 // import { AppRoutingModule } from './/app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,6 +20,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'genres', component: GenresComponent },
+  { path: 'register', component: RegistrationComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LoginComponent },
   { path: '', redirectTo: '/home' , pathMatch: 'full'}
 ];
 
@@ -28,6 +33,8 @@ const appRoutes: Routes = [
     HomeComponent,
     TracksComponent,
     GenresComponent,
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
