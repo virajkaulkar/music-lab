@@ -17,7 +17,9 @@ export class HomeComponent implements OnInit {
   title = "It started working";
   private apiurl = "http://dev.musiclab.com/api/tracks";
   private baseUrl = "http://dev.musiclab.com/api/"
-  private headers = new Headers( {'Content-Type':'application/json'} );
+
+  private headers = new Headers( {'Content-Type':'application/json',
+                        'Authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijg2OWJhNjI2MjU1ZGU5YjMzNTFkNTBjMTA1ZWUwMzQ0OTM0OTBiZGJkMzBiODgwNTJiNTQwYjZmZDA2MjQwZmVmY2I1NDAwZThlZDY3MDVhIn0.eyJhdWQiOiIxIiwianRpIjoiODY5YmE2MjYyNTVkZTliMzM1MWQ1MGMxMDVlZTAzNDQ5MzQ5MGJkYmQzMGI4ODA1MmI1NDBiNmZkMDYyNDBmZWZjYjU0MDBlOGVkNjcwNWEiLCJpYXQiOjE1MzIyNDQ1MDgsIm5iZiI6MTUzMjI0NDUwOCwiZXhwIjoxNTYzNzgwNTA4LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.HO5pOrSixhmVmqJw337VDzd8Ok8kvwiWsqi0XQtBlKdskYvxg1w5qg35JFprqEIcGrDU7a-aVEEG-c4PHnPSJZAGJkmUn7PqHOivR9q66Bl9SioFgBLsiSItrkc6I77UZ5_fSTAT6NfCJk1CqGX1QXTXFKJIlfdZrSDKY4YNMhtMWYBfpAMu3ZQFMDIdpmLYtXKrTO_XRkpdbgxF96xkr13p00eBCchMiL2f0SvbbMrPIxMLlBcPfjs8rXa-SL7xUxT1mTfNnXuPTcx6jGwCunSdzv7VXdKQErVQLWYuqMmDdoxA5fbXXLqrf9iqfgjkDmVwcTZCtBGlml9vWbYbs4tIqksIlhC9k0EXKLPXHA_on-ayGX5RsrXUsc8L7anix-nos0qDxJfQpkr6MBsxKt6T42U3iJn2jJT2x4Vm3jn8UpAEfwMNNyVkxD9HV3mGSuSy8Tzt_lDqqLgVRoMB_VO67GmYvrL29tyrNJgQ6EI9e4fK_HfoHXuf9gbzGNaVYb0Mk9ggRJJY9RI3TZz28tGURmi8lN-EJRIxbZk0POqUGForvKWkf9HxnWtsnxTBc5OPV3FsKuq3JWp1MOWBKp9Y6bx1rumnvRbMuT6KL8eG2BUq1-EsCrgdpp1MsZVJvXz75RYV_P9IRewCID40MbfPWt5Jp0wiLLpoLkV9Yvg'} );
   data : any = {};
   single_track : any = {};
   successMessage = "";
@@ -83,7 +85,7 @@ export class HomeComponent implements OnInit {
 
   getData(name){
     if(!name){
-      return this.http.get(this.apiurl).pipe(map((res: Response) => res.json()));
+      return this.http.get(this.apiurl, {'headers':this.headers}).pipe(map((res: Response) => res.json()));
     }
     else{
       return this.http.get(this.baseUrl + 'track?name=' + name).pipe(map((res: Response) => res.json()));
