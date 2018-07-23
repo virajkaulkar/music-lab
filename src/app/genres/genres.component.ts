@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./genres.component.css']
 })
 export class GenresComponent implements OnInit {
-
+  /****** function to get all available genres ***********/
   title = "It started working";
   private are_genres = true;
   private apiurl = "http://dev.musiclab.com/api/genres";
@@ -30,10 +30,10 @@ export class GenresComponent implements OnInit {
     genre_title: null,
 
   };
-
   private currentUser = '';
   private local_data = localStorage.getItem('currentUser');
   private headers: any = {};
+
   constructor(private http: Http) {
     if((typeof this.local_data !== 'undefined' && this.local_data !== null)){
         this.currentUser = JSON.parse(this.local_data);
@@ -45,9 +45,6 @@ export class GenresComponent implements OnInit {
 	   this.getGenres();
      this.getData();
 	}
-
-
-
   ngOnInit() {
     this.getGenres();
     this.nameForm = new FormGroup ({
@@ -58,7 +55,7 @@ export class GenresComponent implements OnInit {
 
     });
   }
-
+  /****** function to get single genres ***********/
   getGenre(id){
     this.http.get(this.baseUrl+'genre/'+id, {'headers':this.headers}).pipe(map((res: Response) => res.json())).subscribe(single_track => {
       // console.log(single_track);
@@ -70,13 +67,13 @@ export class GenresComponent implements OnInit {
 
     })
   }
+  /****** function to get all available genres ***********/
   getData(){
     //*ngIf="url == '' then apiurl=apiurl else apiurl=url";
     return this.http.get(this.apiurl, {'headers': this.headers}).pipe(map((res: Response) => res.json()));
   }
-
+  /****** function to get all available genres ***********/
   getGenres() {
-
     this.getData().subscribe(data => {
       if(data.length > 0){
         this.are_genres = true;
@@ -84,11 +81,10 @@ export class GenresComponent implements OnInit {
       else{
         this.are_genres = false;
       }
-
       return this.data = data;
     })
   }
-
+  /****** function to add new genre ***********/
   addGenre(genreForm: NgForm) : void {
     console.log(genreForm.value);
     if(genreForm.value.genre_id){
@@ -123,7 +119,7 @@ export class GenresComponent implements OnInit {
      )
     .catch(this.handleErrorPromise);
   }
-
+  /****** function to delete previously added genre ***********/
   deleteGenre(id){
     if(confirm(('Are you sure to delete this Genre?'))){
       return this.http.delete(this.baseUrl + 'genre/'+id, {headers: this.headers}).toPromise()
@@ -134,7 +130,7 @@ export class GenresComponent implements OnInit {
         }
       }
     }
-
+    /****** function to update added genre ***********/
     updateGenre(id){
         return this.http.put(this.baseUrl + 'genre/'+id, {headers: this.headers}).toPromise()
         .then(

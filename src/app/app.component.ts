@@ -10,13 +10,14 @@ import {Router} from '@angular/router';
 })
 
 export class AppComponent {
-
+  /******* private urls  ***********/
   private logout_url = "http://dev.musiclab.com/api/details";
   private currentUser = '';
   private local_data = localStorage.getItem('currentUser');
   private headers: any = {};
   private logged_in = true;
 
+  
   constructor(
     private http: Http,
     private router: Router
@@ -37,7 +38,7 @@ export class AppComponent {
 
   }
 
-
+  /*function to logout user*/
   logout() : void {
     return this.http.post(this.logout_url, {}, {'headers':this.headers}).toPromise()
      .then(

@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  /********* private variables ***************/
   title = "It started working";
   private apiurl = "http://dev.musiclab.com/api/tracks";
   private baseUrl = "http://dev.musiclab.com/api/"
@@ -61,12 +61,7 @@ export class HomeComponent implements OnInit {
      this.getGenres();
 	}
 
-
-
-
   ngOnInit() {
-
-
     this.getTracks();
     this.nameForm = new FormGroup ({
       track_title: new FormControl('', {
@@ -76,7 +71,7 @@ export class HomeComponent implements OnInit {
 
     });
   }
-
+  /****** function to get all available genres ***********/
   getGenres() {
     console.log(this.headers);
       this.http.get(this.baseUrl+'genres', {'headers':this.headers}).pipe(map((res: Response) => res.json())).subscribe(data => {
@@ -89,7 +84,7 @@ export class HomeComponent implements OnInit {
         return this.genres = data;
       })
   }
-
+  /****** function to find track by its id ***********/
   getTrack(id){
     this.http.get(this.baseUrl+'track/'+id, {'headers':this.headers}).pipe(map((res: Response) => res.json())).subscribe(single_track => {
       // console.log(single_track);
@@ -104,6 +99,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  /****** function to returns tracks to getTrack() ***********/
   getData(name){
     if(!name){
       return this.http.get(this.apiurl, {'headers':this.headers}).pipe(map((res: Response) => res.json()));
@@ -111,10 +107,9 @@ export class HomeComponent implements OnInit {
     else{
       return this.http.get(this.baseUrl + 'track?name=' + name, {'headers':this.headers}).pipe(map((res: Response) => res.json()));
     }
-    //*ngIf="url == '' then apiurl=apiurl else apiurl=url";
-
   }
 
+  /****** function to get all available tracks ***********/
   getTracks() {
     this.getData().subscribe(data => {
       if(data.data.length > 0){
@@ -126,7 +121,7 @@ export class HomeComponent implements OnInit {
       return this.data = data;
     })
   }
-
+  /****** function to add new track ***********/
   addTrack(trackForm: NgForm) : void {
     if(trackForm.value.track_id){
       return this.http.put(this.baseUrl + 'track', trackForm.value, {headers: this.headers}).toPromise()
@@ -161,6 +156,7 @@ export class HomeComponent implements OnInit {
     .catch(this.handleErrorPromise);
   }
 
+  /****** function to delete previously added track ***********/
   deleteTrack(id){
     if(confirm(('Are you sure to delete this track?'))){
       return this.http.delete(this.baseUrl + 'track/'+id, {headers: this.headers}).toPromise()
@@ -182,7 +178,7 @@ export class HomeComponent implements OnInit {
         }
       },
     }
-
+    /****** function to update added track ***********/
     updateTrack(id){
         return this.http.put(this.baseUrl + 'track/'+id, {headers: this.headers}).toPromise()
         .then(
@@ -191,7 +187,7 @@ export class HomeComponent implements OnInit {
             this.getTracks();
           }
       }
-
+      /****** function to search track ***********/
       getTracksByName(name){
         this.getData(name).subscribe(data => {
           return this.data = data;

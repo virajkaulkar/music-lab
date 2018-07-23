@@ -44,6 +44,8 @@ export class LoginComponent implements OnInit {
 
   }
   private headers = new Headers( {'Content-Type':'application/json','Authorization':'Bearer '} );
+
+  /****** function to login user ***********/
   login(loginForm: NgForm) : void {
       // localStorage.clear();
       this.http.post(this.apiurl, loginForm.value, {'headers':this.headers}).pipe(map((res: Response) => res.json())).subscribe(user_data => {
