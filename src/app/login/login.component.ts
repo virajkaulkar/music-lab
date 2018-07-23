@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('currentUser', JSON.stringify({ token: user_data.success.token, name: user_data.success.name }));
         loginForm.resetForm();
         window.location.href = '/home';
-        this.router.navigate(['/home'])
+        // this.router.navigate(['/home'])
       },
       error=>{
         console.log(error);

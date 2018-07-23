@@ -8,8 +8,8 @@
                   <div class="col-md-6 col-sm-12 col-xs-12">
                       <div >
                           <h2 class="text-center">Music Genres</h2>
-
-                          <div class="margin10">
+                          <div class="alert alert-danger" [hidden]="are_genres">No Genre Added</div>
+                          <div class="margin10" [hidden]="!are_genres">
                               <ul class="list-group">
                                 <ng-container *ngFor="let genre of data">
                                   <li class="list-group-item">{{ genre.title }}

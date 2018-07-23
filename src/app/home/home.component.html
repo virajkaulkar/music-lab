@@ -8,10 +8,16 @@
           </div>
         </div>
           <div class="col-md-6 col-sm-12 col-xs-12">
-              <div >
-                  <h2 class="text-center">Music Tracks</h2>
+
+              <h2 class="text-center">Music Tracks</h2>
+              <div class="alert alert-danger" [hidden]="are_tracks">
+                No Music Traks added.
+              </div>
+              <div [hidden]="!are_tracks">
+
                   <div class='margin10'><input type="text" name="search_track" id="search_track"
-                    class="form-control search-track border_radius50" placeholder="Search Title" #search_title (keyup)="getTracksByName(search_title.value)"/></div>
+                    class="form-control search-track border_radius50" placeholder="Search Title" #search_title (keyup)="getTracksByName(search_title.value)"/>
+                  </div>
                   <div class="margin10">
                       <ul class="list-group">
                         <ng-container *ngFor="let track of data.data |  paginate: { itemsPerPage: 5, currentPage: p, total:50 }">
@@ -22,9 +28,11 @@
                             <span style='cursor:pointer;float:right;padding:0 10px;' class="pull-right" (click)="getTrack(track.id)">
                               <i class="far fa-edit text-success"></i>
                             </span>
-                            <span class="text-primary" style="float:right;"><span *ngFor="let number of [0,1,2,3,4]">
+                            <span class="text-primary" style="float:right;">
+                              <span *ngFor="let number of [0,1,2,3,4]">
                               <i *ngIf="number < track.ratings" class="fas fa-star"></i>
-                            </span></span>
+                            </span>
+                          </span>
                           </li>
 
                         </ng-container>
@@ -41,8 +49,12 @@
           </div>
           <div class="col-md-6 col-sm-12 col-xs-12">
               <div class="margin10">
+
                   <form #trackForm="ngForm" (ngSubmit)="addTrack(trackForm)">
                       <h2 class="text-center">{{ action_name ? "Add"  : "Update"}} New Track</h2>
+                      <div class="alert alert-danger" [hidden]="are_genres">
+                          You have not added any genre. Please add one first. <a href="/genres">Add genre</a>
+                      </div>
                       <input type="hidden" name="track_id" id="track_id" [(ngModel)]="tracks.id"/>
                       <div class="form-group" [class.has-error] = "track_title_control.invalid && track_title_control.touched"
                                               [class.has-success] = "track_title_control.valid">

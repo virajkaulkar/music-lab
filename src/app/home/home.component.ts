@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
   title = "It started working";
   private apiurl = "http://dev.musiclab.com/api/tracks";
   private baseUrl = "http://dev.musiclab.com/api/"
-
+  private are_tracks = true;
+  private are_genres = true;
   data : any = {};
   single_track : any = {};
   successMessage = "";
@@ -79,6 +80,12 @@ export class HomeComponent implements OnInit {
   getGenres() {
     console.log(this.headers);
       this.http.get(this.baseUrl+'genres', {'headers':this.headers}).pipe(map((res: Response) => res.json())).subscribe(data => {
+        if(data.length > 0){
+          this.are_genres = true;
+        }
+        else{
+          this.are_genres = false;
+        }
         return this.genres = data;
       })
   }
@@ -110,6 +117,12 @@ export class HomeComponent implements OnInit {
 
   getTracks() {
     this.getData().subscribe(data => {
+      if(data.data.length > 0){
+        this.are_tracks = true;
+      }
+      else{
+        this.are_tracks = false;
+      }
       return this.data = data;
     })
   }

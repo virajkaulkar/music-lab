@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 export class GenresComponent implements OnInit {
 
   title = "It started working";
+  private are_genres = true;
   private apiurl = "http://dev.musiclab.com/api/genres";
   private baseUrl = "http://dev.musiclab.com/api/"
   private headers = new Headers( {'Content-Type':'application/json'} );
@@ -77,7 +78,12 @@ export class GenresComponent implements OnInit {
   getGenres() {
 
     this.getData().subscribe(data => {
-      console.log(data);
+      if(data.length > 0){
+        this.are_genres = true;
+      }
+      else{
+        this.are_genres = false;
+      }
 
       return this.data = data;
     })
