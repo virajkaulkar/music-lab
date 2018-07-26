@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+.back_light{
+  background: #fafafa !important;
+}
+.margin10{
+    margin: 10px;
+}
+.margin20{
+    margin: 20px;
+}
+.padding20{
+    padding: 20px;
+}
+.border_radius50{
+    border-radius: 50px;
+}
+.background_white{
+    background: #fff;
+}
+.background_heads{
+    background: rgba(21,27,31,.4)!important;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.invalid-feedback {
+  display: block !important;
+}
