@@ -11,13 +11,13 @@ import {Router} from '@angular/router';
 
 export class AppComponent {
   /******* private urls  ***********/
-  private logout_url = "http://dev.musiclab.com/api/details";
-  private currentUser = '';
+  private logout_url = "http://localhost:8080/api/details";
+  private currentUser : any = {};
   private local_data = localStorage.getItem('currentUser');
   private headers: any = {};
-  private logged_in = true;
+  public logged_in = true;
 
-  
+
   constructor(
     private http: Http,
     private router: Router
@@ -39,20 +39,15 @@ export class AppComponent {
   }
 
   /*function to logout user*/
-  logout() : void {
+  logout(){
     return this.http.post(this.logout_url, {}, {'headers':this.headers}).toPromise()
      .then(
        ()=>{
-         this.successMessage = {success:true, message:"Track is added in your playlist"};
          this.logged_in = false;
-         console.log(this.successMessage.message);
-
          localStorage.clear();
          this.headers = {};
          this.router.navigate(['/login']);
-     )
-    .catch(this.handleErrorPromise);
-
+    });
   }
 
 }

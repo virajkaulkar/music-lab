@@ -12,7 +12,7 @@ import { TracksComponent } from './tracks/tracks.component';
 import { GenresComponent } from './genres/genres.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
-import { HomeService } from './home/home.components';
+
 // import { AppRoutingModule } from './/app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 import {NgxPaginationModule} from 'ngx-pagination';

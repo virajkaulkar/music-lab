@@ -12,18 +12,16 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private error = false;
-  private logged_in = true;
-  private apiurl = "http://dev.musiclab.com/api/login";
-  private logout_url = "http://dev.musiclab.com/api/logout";
-  user: User = {
+  public error : any = {};
+  public logged_in = true;
+  private apiurl = "http://localhost:8080/api/login";
+  // private logout_url = "http://dev.musiclab.com/api/logout";
+  user: any = {
     email:"",
     password:""
   };
-
-  private currentUser = '';
+  private currentUser : any = {};
   private local_data = localStorage.getItem('currentUser');
-  private headers: any = {};
   constructor(
     private http: Http,
     private router: Router

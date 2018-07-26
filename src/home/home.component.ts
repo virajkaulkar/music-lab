@@ -16,35 +16,35 @@ import {Router} from '@angular/router';
 export class HomeComponent implements OnInit {
   /********* private variables ***************/
   title = "It started working";
-  private apiurl = "http://dev.musiclab.com/api/tracks";
-  private baseUrl = "http://dev.musiclab.com/api/"
-  private are_tracks = true;
-  private are_genres = true;
+  private apiurl = "http://localhost:8080/api/tracks";
+  private baseUrl = "http://localhost:8080/api/"
+  public are_tracks = true;
+  public are_genres = true;
   data : any = {};
   single_track : any = {};
-  successMessage = "";
+  public successMessage : any = {};
   action_name = true;
   //pagination variables
   p: number = 1;
   nameForm: FormGroup;
   formData: any = {};
-  tracks: Tracks = {
+  tracks: any = {
     id:null,
     track_title: '',
     genre:"-1",
     ratings:"-1",
   };
 
-  genres: Genres[] = [];
+  genres: any = [];
 
-  ratings: Ratings[] = [
+  ratings: any = [
     { id:1, name: 1 },
     { id:2, name: 2 },
     { id:3, name: 3 },
     { id:4, name: 4 }
   ];
 
-
+  private currentUser : any  = {};
   private local_data = localStorage.getItem('currentUser');
   private headers: any = {};
 
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
   }
 
   /****** function to returns tracks to getTrack() ***********/
-  getData(name){
+  getData(name=''){
     if(!name){
       return this.http.get(this.apiurl, {'headers':this.headers}).pipe(map((res: Response) => res.json()));
     }
@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit {
     })
   }
   /****** function to add new track ***********/
-  addTrack(trackForm: NgForm) : void {
+  addTrack(trackForm: NgForm) {
     if(trackForm.value.track_id){
       return this.http.put(this.baseUrl + 'track', trackForm.value, {headers: this.headers}).toPromise()
        .then(
@@ -136,14 +136,13 @@ export class HomeComponent implements OnInit {
            trackForm.resetForm();
            this.action_name = true;
          }
-       )
-      .catch(this.handleErrorPromise);
+       );
+      // .catch(this.handleErrorPromise);
     }
     return this.http.post(this.baseUrl + 'track', trackForm.value, {'headers':this.headers}).toPromise()
      .then(
        ()=>{
          this.successMessage = {success:true, message:"Track is added in your playlist"};
-         console.log(this.successMessage.message);
          setTimeout(function() {
                  this.successMessage.success = false;
                         console.log(this.successMessage.message);
@@ -152,8 +151,8 @@ export class HomeComponent implements OnInit {
          trackForm.resetForm();
          this.action_name = true;
        }
-     )
-    .catch(this.handleErrorPromise);
+     );
+    // .catch(this.handleErrorPromise);
   }
 
   /****** function to delete previously added track ***********/
@@ -175,9 +174,10 @@ export class HomeComponent implements OnInit {
            }
            this.action_name = true;
           this.getTracks();
-        }
-      },
+        })
+      }
     }
+
     /****** function to update added track ***********/
     updateTrack(id){
         return this.http.put(this.baseUrl + 'track/'+id, {headers: this.headers}).toPromise()
@@ -185,8 +185,9 @@ export class HomeComponent implements OnInit {
           ()=>{
             this.successMessage = {success:true, message:"Track is removed from your playlist"};
             this.getTracks();
-          }
+          });
       }
+
       /****** function to search track ***********/
       getTracksByName(name){
         this.getData(name).subscribe(data => {

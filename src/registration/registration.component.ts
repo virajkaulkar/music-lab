@@ -11,8 +11,8 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  private apiurl = "http://dev.musiclab.com/api/register";
-  user: User = {
+  private apiurl = "http://localhost:8080/api/register";
+  user: any = {
     id:null,
     name: "",
     email:"",

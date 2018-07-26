@@ -68,7 +68,7 @@
                       <div class="form-group" [class.has-error] = "genre_control.invalid && genre_control.touched"
                                               [class.has-success] = "genre_control.valid">
                         <label for="genres" class="control-label">Genre</label>
-                        <select class="form-control genres" id="genre" name="genre" [(ngModel)]="genre" required #genre_control="ngModel">
+                        <select class="form-control genres" id="genre" name="genre" [(ngModel)]="genres" required #genre_control="ngModel">
                           <option value=""  [selected]="action_name">Select Genre</option>
 
                           <option *ngFor="let genre of genres" [value]="genre.id" [selected]="genre.id === tracks.genre">
@@ -83,7 +83,7 @@
                       <div class="form-group" [class.has-error] = "ratings1_control.invalid && genre_control.touched"
                                               [class.has-success] = "ratings1_control.valid">
                         <label for="ratings1" class="control-label">Ratings</label>
-                        <select class="form-control ratings1" id="ratings1" name="ratings1" [(ngModel)]="ratings1" required #ratings1_control="ngModel">
+                        <select class="form-control ratings1" id="ratings1" name="ratings1" [(ngModel)]="ratings" required #ratings1_control="ngModel">
                           <option value="-1">Select Rating</option>
 
                           <option *ngFor="let rating of ratings" [value]="rating.id" [selected]="rating.id === tracks.ratings">

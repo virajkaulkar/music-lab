@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Http, Response, Headers } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import {Router} from '@angular/router';
 // import 'rxjs/add/operator/toPromise';
 // import alert service and component
 
@@ -14,27 +15,26 @@ import { map } from 'rxjs/operators';
 })
 export class GenresComponent implements OnInit {
   /****** function to get all available genres ***********/
-  title = "It started working";
-  private are_genres = true;
-  private apiurl = "http://dev.musiclab.com/api/genres";
-  private baseUrl = "http://dev.musiclab.com/api/"
-  private headers = new Headers( {'Content-Type':'application/json'} );
+  public are_genres = true;
+  private apiurl = "http://localhost:8080/genres";
+  private baseUrl = "http://localhost:8080/api/"
+
   data : any = {};
-  successMessage = "";
+  public successMessage : any = {};
   action_name = true;
   // private successMessageStatus= 0;
   nameForm: FormGroup;
   formData: any = {};
-  genres: Genres = {
+  genres: any = {
     genre_id:null,
     genre_title: null,
 
   };
-  private currentUser = '';
+  private currentUser : any = {};
   private local_data = localStorage.getItem('currentUser');
   private headers: any = {};
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private router: Router) {
     if((typeof this.local_data !== 'undefined' && this.local_data !== null)){
         this.currentUser = JSON.parse(this.local_data);
         this.headers = new Headers( {'Content-Type':'application/json','Authorization':'Bearer '+this.currentUser.token} );
@@ -85,7 +85,7 @@ export class GenresComponent implements OnInit {
     })
   }
   /****** function to add new genre ***********/
-  addGenre(genreForm: NgForm) : void {
+  addGenre(genreForm: NgForm) {
     console.log(genreForm.value);
     if(genreForm.value.genre_id){
       return this.http.put(this.baseUrl + 'genre', genreForm.value, {headers: this.headers}).toPromise()
@@ -100,14 +100,14 @@ export class GenresComponent implements OnInit {
            genreForm.resetForm();
            this.action_name = true;
          }
-       )
-      .catch(this.handleErrorPromise);
+       );
+      // .catch(this.handleErrorPromise);
     }
     return this.http.post(this.baseUrl + 'genre', genreForm.value, {'headers':this.headers}).toPromise()
      .then(
        ()=>{
          this.successMessage = {success:true, message:"Genre is added in your playlist"};
-         console.log(this.successMessage.message);
+         // console.log(this.successMessage.message);
          setTimeout(function() {
                  this.successMessage.success = false;
                         console.log(this.successMessage.message);
@@ -116,9 +116,10 @@ export class GenresComponent implements OnInit {
           genreForm.resetForm();
           this.action_name = true;
        }
-     )
-    .catch(this.handleErrorPromise);
+     );
+    // .catch(this.handleErrorPromise);
   }
+
   /****** function to delete previously added genre ***********/
   deleteGenre(id){
     if(confirm(('Are you sure to delete this Genre?'))){
@@ -127,18 +128,19 @@ export class GenresComponent implements OnInit {
         ()=>{
           this.successMessage = {success:true, message:"Genre is removed from your playlist"};
           this.getGenres();
-        }
-      }
+        });
     }
-    /****** function to update added genre ***********/
-    updateGenre(id){
-        return this.http.put(this.baseUrl + 'genre/'+id, {headers: this.headers}).toPromise()
-        .then(
-          ()=>{
-            this.successMessage = {success:true, message:"Genre is removed from your playlist"};
-            this.getGenre();
-          }
-      }
+  }
+
+  /****** function to update added genre ***********/
+  updateGenre(id){
+      return this.http.put(this.baseUrl + 'genre/'+id, {headers: this.headers}).toPromise()
+      .then(
+        ()=>{
+          this.successMessage = {success:true, message:"Genre is removed from your playlist"};
+          this.getGenres();
+        });
+    }
 
 
 }
